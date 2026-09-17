@@ -66,21 +66,55 @@ const Login = () => {
     }
 
     return (
-        <Container maxWidth="xs">
+        <Container
+            maxWidth="xs"
+            sx={{ px: { xs: 1.5, sm: 2, md: 3 }, py: { xs: 1, sm: 2 } }}
+        >
             <Box sx={{
-                mt: 8,
+                mt: { xs: 2, sm: 4, md: 6, lg: 8 },
+                mb: { xs: 2, sm: 3, md: 4 },
                 display: 'flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                minHeight: '80vh'
+                minHeight: { xs: 'auto', md: '80vh' },
+                width: '100%'
             }}>
-                <Paper elevation={3} sx={{ p: 4, width: '100%' }}>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 3 }}>
-                        <LockOutlinedIcon sx={{ fontSize: 40, color: 'primary.main', mb: 2 }} />
-                        <Typography component="h1" variant="h4" sx={{ fontWeight: 500 }}>
+                <Paper
+                    elevation={3}
+                    sx={{
+                        p: { xs: 2, sm: 3, md: 4 },
+                        width: '100%',
+                        boxSizing: 'border-box',
+                        borderRadius: { xs: 2, sm: 2, md: 2 }
+                    }}
+                >
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        mb: { xs: 2, sm: 2.5, md: 3 }
+                    }}>
+                        <LockOutlinedIcon sx={{
+                            fontSize: { xs: 34, sm: 38, md: 42 },
+                            color: 'primary.main',
+                            mb: { xs: 1.5, sm: 2 }
+                        }} />
+                        <Typography
+                            component="h1"
+                            variant="h4"
+                            sx={{
+                                fontWeight: 500,
+                                textAlign: 'center',
+                                fontSize: { xs: '1.5rem', sm: '1.85rem', md: '2.125rem' }
+                            }}
+                        >
                             DUX Mensajería
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                        <Typography
+                            variant="body2"
+                            color="text.secondary"
+                            sx={{ mt: 1, textAlign: 'center', fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
+                        >
                             Seguro • Simple • Minimalista
                         </Typography>
                     </Box>
@@ -96,6 +130,8 @@ const Login = () => {
                             onChange={(e) => setUsername(e.target.value)}
                             required
                             disabled={loading}
+                            size="small"
+                            sx={{ '& .MuiInputBase-input': { fontSize: { xs: '0.9rem', sm: '1rem' } } }}
                         />
                         <TextField
                             fullWidth
@@ -106,16 +142,23 @@ const Login = () => {
                             onChange={(e) => setPassword(e.target.value)}
                             required
                             disabled={loading}
+                            size="small"
+                            sx={{ '& .MuiInputBase-input': { fontSize: { xs: '0.9rem', sm: '1rem' } } }}
                         />
 
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
-                            sx={{ mt: 3, mb: 2, py: 1.5 }}
+                            sx={{
+                                mt: { xs: 2.5, sm: 3 },
+                                mb: 2,
+                                py: { xs: 1.2, sm: 1.4, md: 1.5 },
+                                fontSize: { xs: '0.9rem', sm: '1rem' }
+                            }}
                             disabled={loading}
                         >
-                            {loading ? <CircularProgress size={24} /> : 'Iniciar Sesión'}
+                            {loading ? <CircularProgress size={22} /> : 'Iniciar Sesión'}
                         </Button>
 
                         <Box sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -124,14 +167,20 @@ const Login = () => {
                                 variant="body2"
                                 onClick={() => navigate('/register')}
                                 disabled={loading}
+                                sx={{ textAlign: 'center', fontSize: { xs: '0.8rem', sm: '0.875rem' } }}
                             >
                                 ¿No tienes cuenta? Regístrate
                             </Link>
                         </Box>
                     </form>
 
-                    <Divider sx={{ my: 3 }}>
-                        <Chip label="Usuarios de prueba" icon={<PeopleAltIcon />} />
+                    <Divider sx={{ my: { xs: 2, sm: 2.5, md: 3 } }}>
+                        <Chip
+                            label="Usuarios de prueba"
+                            icon={<PeopleAltIcon />}
+                            size="small"
+                            sx={{ fontSize: { xs: '0.72rem', sm: '0.8rem' } }}
+                        />
                     </Divider>
 
                     <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1 }}>
@@ -141,14 +190,33 @@ const Login = () => {
                                 variant="outlined"
                                 size="small"
                                 onClick={() => llenarCredenciales(u.username, u.password)}
-                                sx={{ justifyContent: 'space-between', textTransform: 'none' }}
+                                sx={{
+                                    justifyContent: { xs: 'center', sm: 'space-between' },
+                                    textTransform: 'none',
+                                    flexWrap: 'wrap',
+                                    gap: 0.5,
+                                    py: { xs: 1, sm: 0.8 },
+                                    px: { xs: 1, sm: 2 },
+                                    fontSize: { xs: '0.78rem', sm: '0.85rem' }
+                                }}
                             >
-                                <span><strong>{u.username}</strong> ({u.desc})</span>
-                                <Chip label="password123" size="small" variant="outlined" sx={{ ml: 1 }} />
+                                <span style={{ textAlign: 'left' }}>
+                                    <strong>{u.username}</strong> ({u.desc})
+                                </span>
+                                <Chip
+                                    label="password123"
+                                    size="small"
+                                    variant="outlined"
+                                    sx={{ fontSize: { xs: '0.68rem', sm: '0.75rem' } }}
+                                />
                             </Button>
                         ))}
                     </Box>
-                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', textAlign: 'center', mt: 2 }}>
+                    <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ display: 'block', textAlign: 'center', mt: 2, fontSize: { xs: '0.7rem', sm: '0.75rem' } }}
+                    >
                         Haz clic en cualquier usuario para rellenar sus credenciales
                     </Typography>
                 </Paper>

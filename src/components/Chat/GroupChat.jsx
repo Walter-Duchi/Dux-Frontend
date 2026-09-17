@@ -8,6 +8,7 @@ import {
     Badge, CircularProgress, Button
 } from '@mui/material'
 import { Send, Group, ArrowBack } from '@mui/icons-material'
+
 const API_BASE_URL = import.meta.env.VITE_API_URL || '';
 
 const GroupChat = () => {
@@ -185,15 +186,24 @@ const GroupChat = () => {
 
     if (!group) {
         return (
-            <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', height: '100%' }}>
-                <Group sx={{ fontSize: 80, color: 'text.secondary', mb: 2 }} />
-                <Typography variant="h6" color="text.secondary">
+            <Box sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                height: '100%',
+                textAlign: 'center',
+                px: 2
+            }}>
+                <Group sx={{ fontSize: { xs: 56, sm: 68, md: 80 }, color: 'text.secondary', mb: 2 }} />
+                <Typography variant="h6" color="text.secondary" sx={{ fontSize: { xs: '1rem', sm: '1.1rem' } }}>
                     Grupo no encontrado
                 </Typography>
                 <Button
                     startIcon={<ArrowBack />}
                     onClick={() => navigate('/chat')}
                     sx={{ mt: 2 }}
+                    size="small"
                 >
                     Volver a los chats
                 </Button>
@@ -206,44 +216,77 @@ const GroupChat = () => {
             display: 'flex',
             flexDirection: 'column',
             height: '100%',
-            bgcolor: 'background.default'
+            width: '100%',
+            bgcolor: 'background.default',
+            minHeight: 0,
+            overflow: 'hidden'
         }}>
             <Paper sx={{
-                p: 2,
-                mb: 2,
-                borderRadius: 2,
+                p: { xs: 1, sm: 1.25, md: 1.75, lg: 2 },
+                mb: { xs: 0.75, sm: 1, md: 1.5, lg: 2 },
+                borderRadius: { xs: 1.5, sm: 2 },
                 display: 'flex',
                 alignItems: 'center',
-                flexWrap: 'wrap',
-                gap: 2
+                gap: { xs: 0.5, sm: 0.75, md: 1 },
+                flexShrink: 0
             }}>
-                <Box sx={{ display: 'flex', alignItems: 'center', flexGrow: 1 }}>
-                    <IconButton onClick={() => navigate('/chat')} sx={{ mr: 1, display: { sm: 'none' } }}>
-                        <ArrowBack />
-                    </IconButton>
+                <IconButton
+                    onClick={() => navigate('/chat')}
+                    sx={{ display: { xs: 'inline-flex', md: 'none' }, p: { xs: 0.5, sm: 0.75 } }}
+                    size="small"
+                >
+                    <ArrowBack fontSize="small" />
+                </IconButton>
 
-                    <Avatar sx={{ mr: 2, bgcolor: 'secondary.main' }}>
-                        <Group />
-                    </Avatar>
+                <Avatar sx={{
+                    mr: { xs: 0.75, sm: 1, md: 1.5, lg: 2 },
+                    bgcolor: 'secondary.main',
+                    width: { xs: 32, sm: 36, md: 40 },
+                    height: { xs: 32, sm: 36, md: 40 },
+                    flexShrink: 0
+                }}>
+                    <Group fontSize="small" />
+                </Avatar>
 
-                    <Box>
-                        <Typography variant="h6">{group.groupName}</Typography>
-                        <Typography variant="body2" color="text.secondary">
-                            {group.description || 'Sin descripción'}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                            Creado por {group.createdByUsername} • {members.length} miembros
-                        </Typography>
-                    </Box>
+                <Box sx={{ minWidth: 0, flex: 1, overflow: 'hidden' }}>
+                    <Typography
+                        variant="h6"
+                        noWrap
+                        sx={{ fontSize: { xs: '0.9rem', sm: '1rem', md: '1.15rem', lg: '1.25rem' } }}
+                    >
+                        {group.groupName}
+                    </Typography>
+                    <Typography
+                        variant="body2"
+                        color="text.secondary"
+                        noWrap
+                        sx={{
+                            display: { xs: 'none', sm: 'block' },
+                            fontSize: { sm: '0.75rem', md: '0.85rem' }
+                        }}
+                    >
+                        {group.description || 'Sin descripción'}
+                    </Typography>
+                    <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        noWrap
+                        sx={{
+                            display: 'block',
+                            fontSize: { xs: '0.65rem', sm: '0.7rem', md: '0.75rem' }
+                        }}
+                    >
+                        {members.length} miembros
+                    </Typography>
                 </Box>
 
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                    <Badge
-                        color={"success"}
-                        variant="dot"
-                        sx={{ mr: 1 }}
-                    />
-                    <Typography variant="caption" color="text.secondary">
+                <Box sx={{
+                    display: { xs: 'none', sm: 'flex' },
+                    alignItems: 'center',
+                    flexShrink: 0
+                }}>
+                    <Badge color={"success"} variant="dot" sx={{ mr: 1 }} />
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: { sm: '0.72rem', md: '0.78rem' } }}>
                         Conectado
                     </Typography>
                 </Box>
@@ -251,12 +294,13 @@ const GroupChat = () => {
 
             <Paper sx={{
                 flexGrow: 1,
-                p: 2,
-                mb: 2,
+                p: { xs: 1, sm: 1.25, md: 1.75, lg: 2 },
+                mb: { xs: 0.75, sm: 1, md: 1.5, lg: 2 },
                 overflow: 'auto',
-                borderRadius: 2,
+                borderRadius: { xs: 1.5, sm: 2 },
                 display: 'flex',
-                flexDirection: 'column'
+                flexDirection: 'column',
+                minHeight: 0
             }}>
                 {messages.length === 0 ? (
                     <Box sx={{
@@ -265,13 +309,14 @@ const GroupChat = () => {
                         justifyContent: 'center',
                         alignItems: 'center',
                         height: '100%',
-                        textAlign: 'center'
+                        textAlign: 'center',
+                        px: 2
                     }}>
-                        <Group sx={{ fontSize: 60, color: 'text.secondary', mb: 2 }} />
-                        <Typography variant="h6" color="text.secondary">
+                        <Group sx={{ fontSize: { xs: 42, sm: 52, md: 60 }, color: 'text.secondary', mb: 2 }} />
+                        <Typography variant="h6" color="text.secondary" sx={{ fontSize: { xs: '1rem', sm: '1.1rem', md: '1.25rem' } }}>
                             No hay mensajes aún
                         </Typography>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: { xs: '0.78rem', sm: '0.83rem', md: '0.875rem' } }}>
                             Inicia la conversación en {group.groupName}
                         </Typography>
                     </Box>
@@ -284,7 +329,7 @@ const GroupChat = () => {
                                 <Box
                                     key={msg.id}
                                     sx={{
-                                        mb: 2,
+                                        mb: { xs: 0.75, sm: 1, md: 1.5, lg: 2 },
                                         opacity: isTemp ? 0.7 : 1
                                     }}
                                 >
@@ -296,7 +341,8 @@ const GroupChat = () => {
                                             ml: isOwn ? 'auto' : 0,
                                             mr: isOwn ? 0 : 'auto',
                                             width: 'fit-content',
-                                            mb: 0.5
+                                            mb: 0.5,
+                                            fontSize: { xs: '0.62rem', sm: '0.68rem', md: '0.75rem' }
                                         }}
                                     >
                                         {msg.senderUsername}
@@ -309,16 +355,23 @@ const GroupChat = () => {
                                     }}>
                                         <Paper
                                             sx={{
-                                                p: 2,
-                                                maxWidth: '70%',
+                                                p: { xs: 1, sm: 1.25, md: 1.75, lg: 2 },
+                                                maxWidth: { xs: '88%', sm: '82%', md: '75%', lg: '70%' },
                                                 bgcolor: isOwn ? 'primary.main' : 'background.paper',
                                                 color: isOwn ? 'primary.contrastText' : 'text.primary',
-                                                borderRadius: 2,
+                                                borderRadius: { xs: 1.5, sm: 2 },
                                                 position: 'relative',
-                                                border: isTemp ? '1px dashed rgba(255,255,255,0.3)' : 'none'
+                                                border: isTemp ? '1px dashed rgba(255,255,255,0.3)' : 'none',
+                                                wordBreak: 'break-word'
                                             }}
                                         >
-                                            <Typography variant="body1" sx={{ wordBreak: 'break-word' }}>
+                                            <Typography
+                                                variant="body1"
+                                                sx={{
+                                                    wordBreak: 'break-word',
+                                                    fontSize: { xs: '0.88rem', sm: '0.93rem', md: '1rem' }
+                                                }}
+                                            >
                                                 {msg.content}
                                             </Typography>
                                             <Typography
@@ -327,7 +380,8 @@ const GroupChat = () => {
                                                     display: 'block',
                                                     mt: 0.5,
                                                     opacity: 0.7,
-                                                    textAlign: 'right'
+                                                    textAlign: 'right',
+                                                    fontSize: { xs: '0.62rem', sm: '0.68rem', md: '0.75rem' }
                                                 }}
                                             >
                                                 {new Date(msg.createdAt).toLocaleTimeString([], {
@@ -356,8 +410,12 @@ const GroupChat = () => {
                 )}
             </Paper>
 
-            <Paper sx={{ p: 2, borderRadius: 2 }}>
-                <Box sx={{ display: 'flex', gap: 1 }}>
+            <Paper sx={{
+                p: { xs: 0.75, sm: 1, md: 1.5, lg: 2 },
+                borderRadius: { xs: 1.5, sm: 2 },
+                flexShrink: 0
+            }}>
+                <Box sx={{ display: 'flex', gap: { xs: 0.5, sm: 0.75, md: 1 }, alignItems: 'flex-end' }}>
                     <TextField
                         fullWidth
                         multiline
@@ -368,8 +426,12 @@ const GroupChat = () => {
                         onChange={(e) => setNewMessage(e.target.value)}
                         onKeyPress={handleKeyPress}
                         disabled={sending}
+                        size="small"
                         InputProps={{
-                            sx: { borderRadius: 2 }
+                            sx: {
+                                borderRadius: 2,
+                                fontSize: { xs: '0.88rem', sm: '0.93rem', md: '1rem' }
+                            }
                         }}
                     />
                     <IconButton
@@ -377,14 +439,16 @@ const GroupChat = () => {
                         onClick={handleSendMessage}
                         disabled={!newMessage.trim() || sending}
                         sx={{
-                            alignSelf: 'flex-end',
+                            flexShrink: 0,
+                            width: { xs: 40, sm: 42, md: 46 },
+                            height: { xs: 40, sm: 42, md: 46 },
                             bgcolor: 'primary.main',
                             color: 'white',
                             '&:hover': { bgcolor: 'primary.dark' },
                             '&.Mui-disabled': { bgcolor: 'action.disabledBackground' }
                         }}
                     >
-                        {sending ? <CircularProgress size={24} /> : <Send />}
+                        {sending ? <CircularProgress size={20} /> : <Send fontSize="small" />}
                     </IconButton>
                 </Box>
             </Paper>

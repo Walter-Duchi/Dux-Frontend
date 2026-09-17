@@ -14,8 +14,45 @@ const theme = createTheme({
         secondary: { main: '#dc004e' },
         background: { default: '#0a1929', paper: '#132f4c' }
     },
-    typography: { fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif' },
-    shape: { borderRadius: 8 }
+    typography: {
+        fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
+        h4: {
+            fontSize: '2.125rem',
+            '@media (max-width:900px)': { fontSize: '1.85rem' },
+            '@media (max-width:600px)': { fontSize: '1.55rem' }
+        },
+        h5: {
+            fontSize: '1.5rem',
+            '@media (max-width:600px)': { fontSize: '1.2rem' }
+        },
+        h6: {
+            fontSize: '1.25rem',
+            '@media (max-width:900px)': { fontSize: '1.12rem' },
+            '@media (max-width:600px)': { fontSize: '1rem' }
+        },
+        body1: {
+            '@media (max-width:600px)': { fontSize: '0.925rem' }
+        },
+        body2: {
+            '@media (max-width:600px)': { fontSize: '0.825rem' }
+        },
+        button: {
+            '@media (max-width:600px)': { fontSize: '0.85rem' }
+        }
+    },
+    shape: { borderRadius: 8 },
+    breakpoints: {
+        values: { xs: 0, sm: 600, md: 900, lg: 1200, xl: 1536 }
+    },
+    components: {
+        MuiDialog: {
+            styleOverrides: {
+                paper: {
+                    '@media (max-width:600px)': { margin: 8, width: 'calc(100% - 16px)' }
+                }
+            }
+        }
+    }
 })
 
 function App() {
